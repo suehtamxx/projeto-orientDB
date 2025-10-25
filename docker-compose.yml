@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  orientdb-node1:
+    image: orientdb:latest
+    container_name: orientdb-node1
+    # Força o início do servidor distribuído
+    command: "dserver.sh"
+    environment:
+      - ORIENTDB_ROOT_PASSWORD=rootpassword
+    volumes:
+      - ./databases/node1:/orientdb/databases 
+      # Mapeia os 3 arquivos de configuração
+      - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
+      - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
+      - ./config/orientdb-dserver-config.xml:/orientdb/config/orientdb-dserver-config.xml
+      
+      - ./data:/orientdb/data
+    ports:
+      - "2480:2480"
+      - "2424:2424"
+    networks:
+      - orientdb-net
+
+  orientdb-node2:
+    image: orientdb:latest
+    container_name: orientdb-node2
+    command: "dserver.sh"
+    environment:
+      - ORIENTDB_ROOT_PASSWORD=rootpassword
+    volumes:
+      - ./databases/node2:/orientdb/databases
+      # Mapeia os 3 arquivos de configuração
+      - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
+      - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
+      - ./config/orientdb-dserver-config.xml:/orientdb/config/orientdb-dserver-config.xml
+    ports:
+      - "2481:2480"
+      - "2425:2424"
+    depends_on:
+      - orientdb-node1
+    networks:
+      - orientdb-net
+
+networks:
+  orientdb-net:
+    driver: bridge

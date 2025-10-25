@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<orient-server>
+    <handlers>
+        <handler class="com.orientechnologies.orient.server.hazelcast.OHazelcastPlugin">
+            <parameters>
+                <parameter name="enabled" value="true"/>
+                <parameter name="configuration.db.default"
+                           value="${ORIENTDB_HOME}/config/default-distributed-db-config.json"/>
+                <parameter name="configuration.hazelcast"
+                           value="${ORIENTDB_HOME}/config/hazelcast.xml"/>
+            </parameters>
+        </handler>
+        <handler class="com.orientechnologies.orient.server.network.OServerNetworkListener">
+            <parameters>
+                <parameter name="protocol" value="binary"/>
+                <parameter name="socket" value="default"/>
+                <parameter name="port-range" value="2424-2430"/>
+            </parameters>
+        </handler>
+        <handler class="com.orientechnologies.orient.server.network.OServerNetworkListener">
+            <parameters>
+                <parameter name="protocol" value="http"/>
+                <parameter name="socket" value="default"/>
+                <parameter name="port-range" value="2480-2490"/>
+                <parameter name-value="http.charset,UTF-8" name="charset"/>
+            </parameters>
+        </handler>
+    </handlers>
+
+    <users>
+        <user name="root" resources="*"/>
+    </users>
+
+    <properties>
+        <property name="orientdb.distribution" value="true"/>
+    </properties>
+</orient-server>
