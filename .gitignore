@@ -2,6 +2,9 @@ venv/
 *.venv/
 __pycache__/
 *.pyc
-databases/
+databases/node1/*
+databases/node2/*
+!databases/node1/.gitkeep
+!databases/node2/.gitkeep
 .vscode/
-.env
+.DS_Store
