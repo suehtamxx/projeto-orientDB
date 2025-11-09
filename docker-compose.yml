@@ -4,13 +4,11 @@ services:
   orientdb-node1:
     image: orientdb:latest
     container_name: orientdb-node1
-    # Força o início do servidor distribuído
     command: "dserver.sh"
     environment:
       - ORIENTDB_ROOT_PASSWORD=rootpassword
     volumes:
       - ./databases/node1:/orientdb/databases 
-      # Mapeia os 3 arquivos de configuração
       - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
       - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
       - ./config/orientdb-dserver-config.xml:/orientdb/config/orientdb-dserver-config.xml
@@ -30,7 +28,6 @@ services:
       - ORIENTDB_ROOT_PASSWORD=rootpassword
     volumes:
       - ./databases/node2:/orientdb/databases
-      # Mapeia os 3 arquivos de configuração
       - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
       - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
       - ./config/orientdb-dserver-config.xml:/orientdb/config/orientdb-dserver-config.xml
