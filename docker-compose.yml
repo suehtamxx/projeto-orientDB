@@ -2,7 +2,8 @@ version: "3.8"
 
 services:
   orientdb-node1:
-    image: orientdb:latest
+    image: orientdb:2.2.37
+    platform: linux/amd64
     container_name: orientdb-node1
     command: "dserver.sh"
     environment:
@@ -12,7 +13,6 @@ services:
       - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
       - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
       - ./config/orientdb-dserver-config.xml:/orientdb/config/orientdb-dserver-config.xml
-      
       - ./data:/orientdb/data
     ports:
       - "2480:2480"
@@ -21,7 +21,8 @@ services:
       - orientdb-net
 
   orientdb-node2:
-    image: orientdb:latest
+    image: orientdb:2.2.37
+    platform: linux/amd64
     container_name: orientdb-node2
     command: "dserver.sh"
     environment:
@@ -31,6 +32,7 @@ services:
       - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
       - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
       - ./config/orientdb-dserver-config.xml:/orientdb/config/orientdb-dserver-config.xml
+      - ./data:/orientdb/data
     ports:
       - "2481:2480"
       - "2425:2424"
