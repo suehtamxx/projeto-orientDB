@@ -1,0 +1,16 @@
+{
+  "source": { "file": { "path": "/orientdb/data/pessoas.csv" } },
+  "extractor": { "csv": {} },
+  "transformers": [
+    { "vertex": { "class": "Pessoas", "skipDuplicates": true } }
+  ],
+  "loader": {
+    "orientdb": {
+      "dbURL": "remote:localhost/osCriar",
+      "dbUser": "root",
+      "dbPassword": "rootpassword",
+      "dbType": "graph",
+      "batchSize": 1000
+    }
+  }
+}

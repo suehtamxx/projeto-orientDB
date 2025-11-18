@@ -1,0 +1,25 @@
+{
+  "source": { "file": { "path": "/orientdb/data/relacoes.csv" } },
+  "extractor": { "csv": {} },
+  "transformers": [
+    {
+      "edge": {
+        "class": "TRABALHA_EM",
+        "joinFieldName": "id_pessoa",
+        "lookup": "Pessoas.id",
+        "targetJoinFieldName": "id_empresa",
+        "targetLookup": "Empresa.id",
+        "direction": "out"
+      }
+    }
+  ],
+  "loader": {
+    "orientdb": {
+      "dbURL": "remote:localhost/osCriar",
+      "dbUser": "root",
+      "dbPassword": "rootpassword",
+      "dbType": "graph",
+      "batchSize": 1000
+    }
+  }
+}

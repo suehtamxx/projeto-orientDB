@@ -4,15 +4,9 @@ from faker import Faker
 
 fake = Faker('pt_BR')
 
-<<<<<<< HEAD
-qtd_pessoas = 10
-qtd_empresas = 5
-qtd_relacoes = 20
-=======
-qtd_pessoas = 100000
-qtd_empresas = 10000
-qtd_relacoes = 1000000 
->>>>>>> origin/Caio-Branch
+qtd_pessoas = 1000
+qtd_empresas = 100
+qtd_relacoes = 2000
 
 pessoas_id = []
 

@@ -1,0 +1,17 @@
+{
+  "source": { "file": { "path": "/orientdb/data/empresas.csv" } },
+  "extractor": { "csv": {} },
+  "transformers": [
+    { "field": { "fieldName": "nome", "expression": "nome_empresa" } },
+    { "vertex": { "class": "Empresa", "skipDuplicates": true } }
+  ],
+  "loader": {
+    "orientdb": {
+      "dbURL": "remote:localhost/osCriar",
+      "dbUser": "root",
+      "dbPassword": "rootpassword",
+      "dbType": "graph",
+      "batchSize": 1000
+    }
+  }
+}
