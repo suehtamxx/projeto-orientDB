@@ -1,0 +1,52 @@
+{
+  "config": {
+    "dbURL": "plocal:/orientdb/databases/osCriar",
+    "dbUser": "root",
+    "dbPassword": "rootpassword"
+  },
+  "begin": [
+    { "let": { "name": "", "value": "orientdb.connect(config.dbURL, config.dbUser, config.dbPassword)" } }
+  ],
+  "blocks": [
+    {
+      "comment": "Importar Vértices: Pessoas",
+      "source": { "file": { "path": "/orientdb/data/pessoas.csv" } },
+      "extractor": { "csv": {} },
+      "transformers": [
+        { "vertex": { "class": "Pessoas", "skipDuplicates": true } }
+      ],
+      "loader": { "orientdb": { "db": "", "batchSize": 1000 } }
+    },
+    {
+      "comment": "Importar Vértices: Empresas",
+      "source": { "file": { "path": "/orientdb/data/empresas.csv" } },
+      "extractor": { "csv": {} },
+      "transformers": [
+        { "field": { "fieldName": "nome", "expression": "nome_empresa" } },
+        { "vertex": { "class": "Empresa", "skipDuplicates": true } }
+      ],
+      "loader": { "orientdb": { "db": "", "batchSize": 1000 } }
+    },
+    {
+      "comment": "Importar Arestas: TRABALHA_EM",
+      "source": { "file": { "path": "/orientdb/data/relacoes.csv" } },
+      "extractor": { "csv": {} },
+      "transformers": [
+        {
+          "edge": {
+            "class": "TRABALHA_EM",
+            "joinFieldName": "id_pessoa",
+            "lookup": "Pessoas.id",
+            "targetJoinFieldName": "id_empresa",
+            "targetLookup": "Empresa.id",
+            "direction": "out"
+          }
+        }
+      ],
+      "loader": { "orientdb": { "db": "", "batchSize": 1000 } }
+    }
+  ],
+  "end": [
+    { "let": { "name": "", "value": ".close()" } }
+  ]
+}
