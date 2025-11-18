@@ -4,9 +4,9 @@ from faker import Faker
 
 fake = Faker('pt_BR')
 
-qtd_pessoas = 10000
-qtd_empresas = 1000
-qtd_relacoes = 50000
+qtd_pessoas = 100000
+qtd_empresas = 10000
+qtd_relacoes = 1000000 
 
 pessoas_id = []
 
