@@ -6,40 +6,25 @@ services:
     container_name: orientdb-node1
     command: "dserver.sh"
     environment:
-      - ORIENTDB_ROOT_PASSWORD=rootpasswordnode1
+      - ORIENTDB_ROOT_PASSWORD=rootpassword
+      - ORIENTDB_NODE_NAME=node1
     volumes:
       - ./databases/node1:/orientdb/databases 
       - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
       - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
       - ./config/orientdb-dserver-config.xml:/orientdb/config/orientdb-dserver-config.xml
-      
       - ./data:/orientdb/data
-    ports:
-      - "2480:2480"
-      - "2424:2424"
-    networks:
-      - orientdb-net
-
+    network_mode: "host"
   orientdb-node2:
     image: orientdb:latest
     container_name: orientdb-node2
     command: "dserver.sh"
     environment:
-      - ORIENTDB_ROOT_PASSWORD=rootpasswordnode2
+      - ORIENTDB_ROOT_PASSWORD=rootpassword
+      - ORIENTDB_NODE_NAME=node2
     volumes:
       - ./databases/node2:/orientdb/databases
       - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
       - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
       - ./config/orientdb-dserver-config.xml:/orientdb/config/orientdb-dserver-config.xml
-    ports:
-      - "2481:2480"
-      - "2425:2424"
-    depends_on:
-      - orientdb-node1
-    networks:
-      - orientdb-net
-
-networks:
-  orientdb-net:
-    driver: bridge
-    name: orientdb-net
+    network_mode: "host"

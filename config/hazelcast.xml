@@ -6,17 +6,18 @@
     
     <network>
         <port auto-increment="true">2434</port>
+        
+        <interfaces enabled="true">
+            <interface>25.*.*.*</interface>
+        </interfaces>
+
         <join>
             <multicast enabled="false" />
-            
             <tcp-ip enabled="true">
-                <member>orientdb-node1</member>
-                <member>orientdb-node2</member>
+                <member>25.42.96.73</member> 
+                
+                <member>25.XX.XX.XX</member> 
             </tcp-ip>
         </join>
     </network>
-    <executor-service>
-        <pool-size>16</pool-size>
-        <queue-capacity>0</queue-capacity>
-    </executor-service>
 </hazelcast>
